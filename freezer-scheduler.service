@@ -1,0 +1,17 @@
+[Unit]
+Description=Freezer Scheduler daemon
+Documentation=https://git.openstack.org/cgit/openstack/freezer/
+After=network.target
+
+[Service]
+# freezer.env file must be copied to /run/
+# this is the env file that contains all information about OpenStack Keystone
+EnvironmentFile=-/run/freezer.env
+
+# the log file is located in /var/log directory
+ExecStart=/bin/freezer-scheduler --log-file /var/log/freezer-scheduler.log start
+ExecStop=/bin/freezer-scheduler stop
+Type=simple
+
+[Install]
+WantedBy=default.target
